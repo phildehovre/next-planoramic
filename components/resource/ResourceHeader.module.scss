@@ -1,0 +1,38 @@
+.resource_header_ctn {
+    display: "flex"; 
+    flex-direction: row;
+    align-items: "center"; 
+    gap: "1em";
+    width: 100%;
+}
+
+.heading {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.header_column {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    
+    > .row {
+        display: flex;
+        justify-content: flex-start;
+        text-align: left;
+        align-items: center;
+        flex-direction: row;
+        gap: 1em;
+
+    }
+}
+
+.resource_title {
+    font-weight: bold;
+    font-size: 2em;
+}
+.resource_description {
+    padding: 1em 0;
+}

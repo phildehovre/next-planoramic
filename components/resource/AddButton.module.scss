@@ -1,0 +1,24 @@
+.add_btn {
+    position: relative;
+    border: 1px solid black;
+    border-radius: 1em;
+    width: 75px;
+    text-align: center;
+    padding: 0.5em 1em;
+    transition: 250ms ease-in-out all;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    background-color: rgba(30, 143, 255, 0.377);
+    // background-color: rgba(30, 143, 255);
+    z-index: 100; 
+}
+
+
+.add_phase_btn:hover {
+    background-color: rgba(0, 65, 129, 0.795);
+    width: 100px;
+    color: white;
+    border: 1px solid white;
+}
+

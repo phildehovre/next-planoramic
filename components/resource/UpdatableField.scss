@@ -1,0 +1,21 @@
+.passive{
+    color: inherit;
+    transition: 150ms ease-in-out all;
+    &:hover {
+        font-weight: bold;
+    }
+}
+
+.active {
+    & > input {
+        font-weight: inherit;
+        padding: inherit;
+        font-size: inherit;
+        padding: .2em;
+        outline: 1px solid lightgrey;
+    }
+}
+
+.placeholder {
+    color: rgba(128, 128, 128, 0.651)
+}

@@ -1,0 +1,73 @@
+// Modal.scss
+
+.modal_overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5); // semi-transparent overlay
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal_container {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1em;
+    border-radius: 8px;
+    
+  }
+  .modal_content {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    min-height: 200px;
+    width: 100%;
+    height: 100%;
+
+    &>input {
+      padding: .5em;
+      margin: .5em;
+      border: 1px solid lightgrey;
+      border-radius: 5px;
+    }
+  }
+  
+  .modal_buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  
+    button {
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 16px;
+  
+      
+      &.save_btn {
+        border: 1px solid #4caf50;
+        color: black;
+        &:hover {
+          background: #4caf50; // green
+          color: white;
+        }
+      }
+  
+      &.cancel_btn {
+        border: 1px solid #f44336; // red
+        color: black;
+        &:hover {
+          background: #f44336; // red
+          color: white;
+        }
+      }
+    }
+  }
+  

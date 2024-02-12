@@ -1,0 +1,41 @@
+.cell_ctn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.082);
+    color: rgb(0, 0, 0);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-height: 50px;
+    width: 100%;
+    position: relative;
+    padding: 0 0.5em;
+    transition: 100ms ease-in-out all;
+    text-wrap: wrap;
+    
+    
+    &:last-child {
+        border-right: none;
+    }
+    
+    > input {
+        outline: none;
+        border: none;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.entity {
+    cursor: pointer;
+
+}
+
+.range {
+    max-width: 50px;
+    justify-content: center;
+}
+.unit {
+    max-width: 75px;
+}
+

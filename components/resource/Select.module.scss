@@ -1,0 +1,30 @@
+.select_item {
+    padding: 1em;
+    min-width: 150px;
+    cursor: pointer;
+}
+
+.select_trigger {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.select_value{
+    text-transform: capitalize;
+}
+
+.select_content {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+.select_label {
+    display: block;
+    padding: 1em;
+    cursor: pointer;
+    text-transform: capitalize;
+    font-weight: bold;
+}

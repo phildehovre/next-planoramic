@@ -1,0 +1,115 @@
+.sidebar {
+    &_ctn {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        width: 0%;
+        transform: translateX(-100%);
+        transition: 250ms ease-in-out all;
+        
+        &.open {
+            transition: 250ms ease-in-out all;
+            width: 100%;
+            transform: translateX(100%);
+            border-right: 1px solid rgb(202, 202, 202);
+        }
+    }
+
+    &_pull_tab {
+        height: 1em;
+        width: 1em;
+        padding: .7em;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: rgba(128, 128, 128, 0.144);
+        cursor: pointer;
+        transform: rotate(0deg);
+        
+        &.open {
+            transform: rotate(180deg);
+        }
+    }
+    &_category {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        list-style: none;
+    }
+}
+
+
+
+
+.sidebar_section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 0px;
+    text-align: left;
+    
+    &_heading {
+        text-align: left;
+        font-size: 1.2em;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        
+    }
+    
+    &_list {
+        text-align: left;
+        width: 100%;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+        padding: 0;
+        
+    }
+    
+    &_item {
+        text-decoration: none;
+        color: grey;
+        padding: 0;
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        width: 100%;
+        cursor: pointer;
+        transition: 150ms all ease-in;
+        font-weight: normal;
+
+        &:hover {
+            color: black
+        }
+    
+    }
+}
+
+@media (max-width: 450px) {
+    .sidebar_ctn {
+        display: none;
+    };
+    
+    .sidebar  {
+        display: none;
+        
+        &.open {
+            display: flex;
+        }
+    }
+    
+    .sidebar_pull-tab {
+        display: none;
+    }
+}
