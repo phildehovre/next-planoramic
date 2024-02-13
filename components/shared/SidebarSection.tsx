@@ -43,8 +43,6 @@ const navIcons: {
   },
 ];
 
-console.log(navIcons[2].items);
-
 const SidebarSection: React.FC<SidebarSectionProps> = ({
   heading,
   items,
@@ -78,7 +76,7 @@ const SidebarSection: React.FC<SidebarSectionProps> = ({
             );
             return (
               <Link
-                href={item.pathname}
+                // href={item.pathname}
                 className={styles.sidebar_section_item}
                 key={crypto.randomUUID()}
               >
