@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import styles from "./Sidebar.module.scss";
 import Link from "next/link";
@@ -55,7 +57,7 @@ const SidebarSection: React.FC<SidebarSectionProps> = ({
         {navIcons.find((icon) => icon.type === type)?.icon}
         {heading}
       </h1>
-      {heading !== "settings" ? (
+      {heading !== "Settings" ? (
         <ul className={styles.sidebar_section_list}>
           {items.map((item) => (
             <Link
@@ -70,20 +72,14 @@ const SidebarSection: React.FC<SidebarSectionProps> = ({
         </ul>
       ) : (
         <ul className={styles.sidebar_section_list}>
-          {items.map((item) => {
-            console.log(
-              navIcons[2]?.items?.find((icon) => icon.name === item.name)?.icon
-            );
+          {items.map((item: any) => {
             return (
               <Link
-                // href={item.pathname}
+                href={item.pathname}
                 className={styles.sidebar_section_item}
                 key={crypto.randomUUID()}
               >
-                {
-                  navIcons[2]?.items?.find((icon) => icon.name === item.name)
-                    ?.icon
-                }
+                {navIcons.find((icon: any) => icon.name === item.name)?.icon}
                 {item.name}
               </Link>
             );
