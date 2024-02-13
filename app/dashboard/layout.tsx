@@ -42,28 +42,37 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
       heading: "Settings",
       type: "settings",
       items: [
-        { name: "Settings", description: "User and account settings" },
-        { name: "Profile", description: "Your profile and account settings" },
-        { name: "Logout", description: "Logout of your account" },
+        {
+          name: "Settings",
+          pathname: "/settings",
+          description: "User and account settings",
+        },
+        {
+          name: "Profile",
+          pathname: "/profile",
+          description: "Your profile and account settings",
+        },
+        {
+          name: "Logout",
+          pathname: "/sign-out",
+          description: "Logout of your account",
+        },
       ],
     },
   ];
 
   return (
-    <div>
+    <>
       {user && (
         <div
-          className={cn(
-            "dashboard_ctn",
-            "w-full flex justify-between h-screen"
-          )}
+          className={cn("dashboard_ctn", "w-full flex justify-between h-full")}
         >
           <Sidebar data={ressourceData} />
           <div className={cn("dashboard", " w-full flex")}>{children}</div>
         </div>
       )}
       {/* <Spinner loading={isLoading} /> */}
-    </div>
+    </>
   );
 };
 

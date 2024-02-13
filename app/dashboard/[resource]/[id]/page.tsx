@@ -55,7 +55,7 @@ const Page = async ({ params }: any) => {
     params.resource === "template" ? templateEvents : campaignEvents;
 
   return (
-    <div>
+    <div className="w-full px-5">
       <ResourceHeader
         resourceId={params.id}
         type={params.resource}

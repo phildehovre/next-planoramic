@@ -6,7 +6,7 @@ import { updateField } from "@/app/actions/actions";
 import Form from "./Form";
 import { useOptimistic } from "react";
 import Select from "./Select";
-import { entityOptions, unitOptions } from "@/lib/SelectOptions";
+import { entityOptions, unitOptions } from "@/constants/SelectOptions";
 import { capitalize } from "@/utils/helpers";
 import { ArrowDownIcon, TriangleDownIcon } from "@radix-ui/react-icons";
 import classnames from "classnames";

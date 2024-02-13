@@ -13,6 +13,7 @@ import { currentUser, useAuth, useUser } from "@clerk/nextjs";
 import { get } from "http";
 import { cn } from "@/lib/utils";
 import DrawerWrapper from "./Drawer";
+import { Icon } from "@iconify/react";
 
 const Sidebar = ({ data }: { data: SidebarTypes[] }) => {
   const [isShowing, setIsShowing] = useState(true);
@@ -63,10 +64,14 @@ const Sidebar = ({ data }: { data: SidebarTypes[] }) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div
+      className={`flex justify-start flex-col ${
+        isShowing ? "" : ""
+      } relative p-4 gap-2`}
+    >
       <Button
         onClick={() => setIsShowing((prev) => !prev)}
-        className=" p-2 bg-slate-400 flex items-center justify-center rounded-md text-white hover:bg-slate-500 transition-all duration-200 ease-in-out hover:shadow-md m-auto"
+        className=" p-2 w-8 bg-slate-400 flex items-center justify-start rounded-md text-white hover:bg-slate-500 transition-all duration-200 ease-in-out hover:shadow-md"
       >
         <ExitIcon />
       </Button>
@@ -76,7 +81,7 @@ const Sidebar = ({ data }: { data: SidebarTypes[] }) => {
         // onClose={() => setIsShowing(false)}
         role="complementary"
         className={cn(
-          `w-[250px] h-full px-4 flex flex-col gap-4 ${!isShowing && "hidden"}`
+          `w-[250px] h-full flex flex-col gap-4 ${!isShowing && "hidden"}`
         )}
       >
         {data.map((category, index) => {

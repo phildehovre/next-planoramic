@@ -49,6 +49,8 @@ type SidebarSettingsMenuItems = {
   name: "Settings" | "Profile" | "Logout";
   description: string;
   id?: string;
+  icon?: React.ReactElement;
+  pathname: string;
 };
 
 type OptionType = {

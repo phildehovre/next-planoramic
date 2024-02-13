@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import UpdatableField from "./UpdatableField";
 import styles from "./Cell.module.scss";
-import { CampaignHeaders, TemplateHeaders } from "@/lib/TableHeaders";
+import { CampaignHeaders, TemplateHeaders } from "@/constants/TableHeaders";
 import { capitalize } from "@/utils/helpers";
 import classnames from "classnames";
 
