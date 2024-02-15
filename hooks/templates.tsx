@@ -81,8 +81,6 @@ export const getEventsByTemplateId = async (id: string, user: any) => {
       },
     });
 
-    console.log("EVENTS: ", events);
-
     return events;
   } catch (err: any) {
     error = err;

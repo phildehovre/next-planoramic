@@ -21,7 +21,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     campaigns = await getCampaigns(user.id);
   }
 
-  console.log("TEMPLATES: ", templates);
+  // console.log("TEMPLATES: ", templates);
 
   // if (!templates) {
   //   redirect("/dashboard");

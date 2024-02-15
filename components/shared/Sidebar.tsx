@@ -85,7 +85,6 @@ const Sidebar = ({ data }: { data: SidebarTypes[] }) => {
         )}
       >
         {data.map((category, index) => {
-          console.log(category.items);
           return (
             <div key={category.heading + index}>
               <SidebarSection
