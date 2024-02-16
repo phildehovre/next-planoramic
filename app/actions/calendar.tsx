@@ -3,33 +3,26 @@
 import { auth } from "@clerk/nextjs";
 import dayjs from "dayjs";
 import { backOff } from "exponential-backoff";
+import { update } from "./eventActions";
 
-export const fetchAccessToken = async (userId: string | null) => {
+const fetchOauthGoogleToken = async (userId: string | null) => {
+  if (!userId) return;
   try {
     const response = await fetch(
-      `http://localhost:3000/api/google/users/${userId}/oauth_access_tokens/oauth_google`,
+      `https://api.clerk.dev/v1/users/${userId}/oauth_access_tokens/oauth_google`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // Add any other headers if needed
+          Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
         },
-        // You can add credentials: 'include' if you need to send cookies or auth headers
       }
     );
-
-    if (response.ok) {
-      const data = await response.json();
-      // Assuming the response contains the access token
-      console.log("From fetch at calendar.ts, DATA: ", data);
-      return data;
-    } else {
-      // Handle error responses
-      console.log(response);
-      console.error("Failed to fetch access token");
-    }
+    const responseData = await response.json();
+    console.log("DATA:", responseData);
+    return responseData[0].token;
   } catch (error) {
-    console.error("Error fetching access token:", error);
+    console.error("Error fetching data:", error);
   }
 };
 
@@ -137,10 +130,8 @@ export async function postManyEventsToGoogle(
   // targetDate: Date,
   userId: string
 ) {
-  const token = await fetchAccessToken(userId);
-  console.log("TOKEN: ", token);
+  const token = await fetchOauthGoogleToken(userId);
   if (!token) return;
-  console.log("postManyEventsToGoogle", userId, token);
   for (let i = 0; i < events.length; i++) {
     try {
       const response = await backOff(() =>
@@ -200,7 +191,7 @@ export async function formatAndPostUniqueEvent(
         body: JSON.stringify(event),
       }
     ).then((res) => {
-      console.log("POST UNIQUE RESPONSE: ", res);
+      console.log("POST UNIQUE RESPONSE: ", res.json());
       return res.json();
     });
   } catch (error) {
