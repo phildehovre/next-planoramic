@@ -2,7 +2,6 @@ import { User } from "@prisma/client";
 import prisma from "@/lib/db";
 
 export async function getTemplates(userId: string) {
-  console.log("userId: ", userId);
   if (userId) {
     const templates = await prisma.template.findMany({
       where: {

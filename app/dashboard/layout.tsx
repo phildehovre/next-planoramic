@@ -8,11 +8,6 @@ import { cn } from "@/lib/utils";
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const user = await currentUser();
 
-  // const [OauthAccessToken] = await clerkClient.users.getUserOauthAccessToken(
-  //   user.id || "",
-  //   "oauth_google"
-  // );
-
   let templates;
   let campaigns;
 
