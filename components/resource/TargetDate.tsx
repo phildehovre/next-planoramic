@@ -4,6 +4,7 @@ import React from "react";
 import Modal from "@/components/shared/Modal";
 import Form from "./Form";
 import { updateTargetDate } from "@/app/actions/campaignActions";
+import { Button } from "../ui/button";
 
 type TargetDateTypes = {
   display: boolean;
@@ -32,9 +33,14 @@ const TargetDate = ({
       </div>
       <Form action={handleTargetDateChange}>
         <Modal
-          submit={<button type="submit">Select date</button>}
+          submit={
+            <Button className="w-full" type="submit">
+              Select date
+            </Button>
+          }
           display={displayModal}
           onCancel={() => setDisplayModal(false)}
+          heading="Select a target date"
         >
           <input type="date" name="targetDate" id="targetDate" />
         </Modal>
