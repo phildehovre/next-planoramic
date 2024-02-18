@@ -15,6 +15,8 @@ import {
 import classnames from "classnames";
 import DropdownMenuDemo from "./Dropdown";
 import AddButton from "./AddButton";
+import { CalendarDaysIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type ResourceTableTypes = {
   events: EventType[];
@@ -117,7 +119,7 @@ const ResourceTable = ({
   ];
 
   return (
-    <div className={styles.table_ctn}>
+    <div className={cn(styles.table_ctn, "gap-2")}>
       {phases.map((phaseNumber: number | undefined) => {
         return (
           <React.Fragment key={crypto.randomUUID()}>
@@ -139,8 +141,8 @@ const ResourceTable = ({
               onClick={() =>
                 createEvent(type, resource, user.id, Number(phaseNumber))
               }
-              Icon={<PlusIcon />}
-              classNames={classnames("event")}
+              Icon={<CalendarDaysIcon />}
+              classNames={cn("w-[125px] bg-gray-100")}
             />
           </React.Fragment>
         );
@@ -189,17 +191,22 @@ const Phase = ({
 
   return (
     <div>
-      <span style={{ display: "flex", gap: "1em", alignItems: "center" }}>
+      <span
+        style={{ display: "flex", gap: "1em", alignItems: "center" }}
+        className="flex gap-2 items-center w-full justify-start rounded px-4 py-2 bg-gray-100 border-b-2 border-gray-200"
+      >
         <h1>Phase {phaseNumber}</h1>
         <DropdownMenuDemo
           Icon={DotsHorizontalIcon}
           options={phaseOptions}
           onOptionClick={handlePhaseOptionClick}
+          label="Phase options"
         />
         <DropdownMenuDemo
           Icon={DotsVerticalIcon}
           options={selectedEventsOptions}
           onOptionClick={handleSelectedOptionClick}
+          label="Events options"
         />
       </span>
       <Row

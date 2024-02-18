@@ -3,16 +3,19 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import styles from "./Dropdown.module.scss";
 import { capitalize } from "@/utils/helpers";
-import { createEvent } from "@/app/actions/eventActions";
+import { DropdownMenuSeparator } from "@radix-ui/themes";
+import { cn } from "@/lib/utils";
 
 const DropdownMenuDemo = ({
   options,
   onOptionClick,
   Icon,
+  label,
 }: {
   options: OptionType[];
   onOptionClick: (type: string, phase?: number) => void;
   Icon: any;
+  label?: string;
 }) => {
   return (
     <DropdownMenu.Root>
@@ -27,11 +30,16 @@ const DropdownMenuDemo = ({
           className={styles.DropdownMenuContent}
           sideOffset={5}
         >
-          {options.map((option: any) => {
+          <DropdownMenu.Label>{label}</DropdownMenu.Label>
+          <DropdownMenuSeparator />
+          {options.map((option: any, i: number) => {
             if (!option.submenu) {
               return (
                 <DropdownMenu.Item
-                  className={styles.DropdownMenuItem}
+                  className={cn(
+                    styles.DropdownMenuItem,
+                    `${i == 0 ? "mt-2 border-t-slate-500" : ""}`
+                  )}
                   key={crypto.randomUUID()}
                   onSelect={() => onOptionClick(option.type)}
                 >

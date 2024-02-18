@@ -4,6 +4,11 @@ import { getCampaigns } from "@/hooks/campaigns";
 import Sidebar from "@/components//shared/Sidebar";
 import { auth, clerkClient, currentUser } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const user = await currentUser();
@@ -15,12 +20,6 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     templates = await getTemplates(user.id);
     campaigns = await getCampaigns(user.id);
   }
-
-  // console.log("TEMPLATES: ", templates);
-
-  // if (!templates) {
-  //   redirect("/dashboard");
-  // }
 
   const ressourceData: SidebarTypes[] = [
     {
@@ -59,12 +58,18 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {user && (
-        <div
+        <ResizablePanelGroup
+          direction="horizontal"
           className={cn("dashboard_ctn", "w-full flex justify-between h-full")}
         >
-          <Sidebar data={ressourceData} />
-          <div className={cn("dashboard", " w-full flex")}>{children}</div>
-        </div>
+          <ResizablePanel defaultSize={15} className="min-w-5">
+            <Sidebar data={ressourceData} />
+          </ResizablePanel>
+          <ResizableHandle withHandle />
+          <ResizablePanel className={cn("dashboard", " w-full flex")}>
+            {children}
+          </ResizablePanel>
+        </ResizablePanelGroup>
       )}
       {/* <Spinner loading={isLoading} /> */}
     </>

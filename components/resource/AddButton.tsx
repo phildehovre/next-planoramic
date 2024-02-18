@@ -4,6 +4,7 @@ import classnames from "classnames";
 import React from "react";
 import styles from "./AddButton.module.scss";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 
 type AddButtonTypes = {
   buttonText?: string;
@@ -28,15 +29,16 @@ const AddButton = ({
   };
 
   return (
-    <button
+    <Button
       onClick={onClick}
-      className={cn(styles.add_btn, classNames)}
+      className={cn("w-[150px] mx-auto")}
+      variant="outline"
       onMouseEnter={handleMouseIn}
       onMouseLeave={handleMouseOut}
       title={buttonText}
     >
       {Icon}
-    </button>
+    </Button>
   );
 };
 

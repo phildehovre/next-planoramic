@@ -33,6 +33,7 @@ const Row = ({
   };
 
   const renderCells = () => {
+    if (!data) return;
     const keys = Object.keys(data);
     return keys.map((key) => {
       return (

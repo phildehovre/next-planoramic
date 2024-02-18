@@ -15,12 +15,13 @@ import Modal from "@/components/shared/Modal";
 import { redirect } from "next/navigation";
 import { dayjsFormat } from "@/utils/helpers";
 import TargetDate from "./TargetDate";
-import {
-  fetchAccessToken,
-  postManyEventsToGoogle,
-} from "@/app/actions/calendar";
 import classNames from "classnames";
 import { useUser } from "@clerk/nextjs";
+import usePostManyEventsToGoogle from "@/hooks/calendar";
+import { Card } from "@radix-ui/themes";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 
 type ResourceHeaderTypes = {
   resourceId: string;
@@ -38,8 +39,8 @@ const ResourceHeader = ({
   const [displayModal, setDisplayModal] = React.useState("");
 
   const { user } = useUser();
-
-  console.log(user);
+  const { postManyEventsToGoogle, loading, errors, successfulPosts } =
+    usePostManyEventsToGoogle();
 
   const campaignOptions = [
     {
@@ -90,12 +91,9 @@ const ResourceHeader = ({
 
   const handlePublishCampaign = async () => {
     if (!!events && !!user?.id) {
-      postManyEventsToGoogle(events, user?.id).then((res) => {
-        console.log("After posting response: ", res);
-      });
+      postManyEventsToGoogle(events, user?.id).then((res) => {});
     }
   };
-
   return (
     <>
       <div className={styles.resource_header_ctn}>
@@ -135,41 +133,58 @@ const ResourceHeader = ({
       />
       <Form action={handlePublishTemplate}>
         <Modal
-          submit={<button type="submit">Create</button>}
+          submit={
+            <Button
+              variant="outline"
+              className="w-full bg-slate-600  text-white"
+              type="submit"
+            >
+              Create
+            </Button>
+          }
           onCancel={() => setDisplayModal("")}
           display={displayModal === "publish_template"}
+          heading="Publish template as campaign"
+          description="Create a new campaign from this template."
         >
-          <h1>Publish template as campaign</h1>
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" id="name" />
-          <label htmlFor="targetDate">Campaign Deadline: </label>
-          <input type="date" name="targetDate" id="targetDate" />
+          <Label htmlFor="name">Name</Label>
+          <Input type="text" name="name" id="name" />
+          <Label htmlFor="targetDate">Campaign Deadline: </Label>
+          <Input type="date" name="targetDate" id="targetDate" />
         </Modal>
       </Form>
       <Modal
         onCancel={() => setDisplayModal("")}
         onSave={handlePublishCampaign}
         display={displayModal === "publish_campaign"}
+        isLoading={loading}
+        heading="Publish campaign to Google Calendar"
+        description="The following events will be pushed to Google calendar:"
       >
-        <h1>Publish template as campaign</h1>
-        <p>The following events will be pushed to Google calendar:</p>
-        {events?.map((event) => {
-          return (
-            <div
-              key={event.id}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                gap: ".2em",
-              }}
-            >
-              <h4>{event.name}</h4>
-              <p>{event.description}</p>
-              <p>{event.date}</p>
-            </div>
-          );
-        })}
+        <div className="">
+          {events?.map((event) => {
+            let isError = errors.find((error) => error.event.id === event.id);
+            return (
+              <div
+                key={event.id}
+                className={`
+                flex justify-between flex-row w-full p-2 text-sm my-1 bg-gray-100 rounded-md
+                ${isError ? "bg-red-100" : "bg-green-100"}
+                "
+                `}
+              >
+                <div className="flex flex-col w-full">
+                  <h4 className="">{event.name}</h4>
+                  <p>{event.description}</p>
+                  <p>{event.date}</p>
+                </div>
+                <p className="flex w-full my-auto justify-end text-red-600">
+                  {isError && !loading ? isError.code : null}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </Modal>
     </>
   );

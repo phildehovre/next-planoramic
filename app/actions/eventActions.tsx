@@ -60,7 +60,7 @@ export async function update(formData: FormData, id: string) {
     });
   }
 
-  revalidatePath("/");
+  revalidatePath(`/dashboard`);
 }
 
 export async function deleteEvent(id: string) {
@@ -150,7 +150,7 @@ export const handleUpdateField = async (
   try {
     let data = { [key]: val };
 
-    console.log(key, val);
+    // console.log(key, val);
     if (key === "date") {
       console.log("update range!");
     }

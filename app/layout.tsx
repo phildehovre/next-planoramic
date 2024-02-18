@@ -5,6 +5,7 @@ import { Theme } from "@radix-ui/themes";
 import "./globals.css";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,11 +23,12 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <main>
+          <main className="flex flex-col justify-between w-screen h-screen">
             <Header />
             {children}
             <Footer />
           </main>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

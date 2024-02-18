@@ -4,8 +4,10 @@ import { auth } from "@clerk/nextjs";
 import dayjs from "dayjs";
 import { backOff } from "exponential-backoff";
 import { update } from "./eventActions";
+import { updateField } from "./actions";
+import { Event } from "@prisma/client";
 
-const fetchOauthGoogleToken = async (userId: string | null) => {
+export const fetchOauthGoogleToken = async (userId: string | null) => {
   if (!userId) return;
   try {
     const response = await fetch(
@@ -19,7 +21,6 @@ const fetchOauthGoogleToken = async (userId: string | null) => {
       }
     );
     const responseData = await response.json();
-    console.log("DATA:", responseData);
     return responseData[0].token;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -93,7 +94,7 @@ export async function formatAndUpdateEvent(
       {
         method: "PUT",
         headers: {
-          Authorization: "Bearer " + token.provider_token,
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify(event),
       }
@@ -125,30 +126,39 @@ const fetchHolidays = async (region: string, token: any) => {
   }
 };
 
-export async function postManyEventsToGoogle(
-  events: any[],
-  // targetDate: Date,
-  userId: string
-) {
-  const token = await fetchOauthGoogleToken(userId);
-  if (!token) return;
-  for (let i = 0; i < events.length; i++) {
-    try {
-      const response = await backOff(() =>
-        formatAndPostUniqueEvent(events[i], token)
-      );
-      return response;
-    } catch (e) {
-      console.log("error: ", e);
-    }
-  }
-}
+// export async function postManyEventsToGoogle(
+//   events: any[],
+//   // targetDate: Date,
+//   userId: string
+// ) {
+//   const eventsSuccessfullyPublished: string[] = [];
+//   const token = await fetchOauthGoogleToken(userId);
+//   if (!token) return;
+//   for (let i = 0; i < events.length; i++) {
+//     try {
+//       const response = await backOff(() =>
+//         formatAndPostUniqueEvent(events[i], token).then((res: any) => {
+//           const [status, data] = res;
+//           if (status !== 200) {
+//             return;
+//           }
+//           console.log("RESPONSE FROM INDIVIDUAL EVENT POST: ", res);
+//           eventsSuccessfullyPublished.push(data.id);
+//         })
+//       );
+//       return response;
+//     } catch (e) {
+//       console.log("error: ", e);
+//     }
+//   }
+// }
 
 export async function formatAndPostUniqueEvent(
   eventObj: EventType,
   token: string
 ) {
   const { entity, description, id, date } = eventObj;
+  let status, data;
 
   if (!token || !eventObj) {
     console.log(
@@ -191,10 +201,25 @@ export async function formatAndPostUniqueEvent(
         body: JSON.stringify(event),
       }
     ).then((res) => {
-      console.log("POST UNIQUE RESPONSE: ", res.json());
+      data = eventObj;
+      console.log(res.status);
+      status = res.status;
+      if (res.status !== 200) return;
+      try {
+        updateField(
+          eventObj.type,
+          eventObj.id,
+          "published",
+          true,
+          `/dashboard`
+        );
+      } catch (e) {
+        console.log("error: ", e);
+      }
       return res.json();
     });
   } catch (error) {
     alert("Unable to create event at this time: " + error);
   }
+  return [status, data];
 }

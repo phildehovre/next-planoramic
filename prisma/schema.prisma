@@ -72,4 +72,5 @@ model Event {
   Campaign     Campaign? @relation(fields: [campaignId], references: [id])
   Template     Template? @relation(fields: [templateId], references: [id])
   created_by   User?     @relation(fields: [userId], references: [id])
+  published    Boolean   @default(false)
 }
