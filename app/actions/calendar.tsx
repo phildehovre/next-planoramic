@@ -7,7 +7,7 @@ import { update } from "./eventActions";
 import { updateField } from "./actions";
 import { Event } from "@prisma/client";
 
-export const fetchOauthGoogleToken = async (userId: string | null) => {
+export const fetchOauthGoogleToken = async (userId: string | undefined) => {
   if (!userId) return;
   try {
     const response = await fetch(
@@ -34,23 +34,32 @@ export async function deleteCalendarEvent(id: string, token: any) {
       {
         method: "DELETE",
         headers: {
-          Authorization: "Bearer " + process.env.CLERK_SECRET_KEY,
+          Authorization: "Bearer " + token,
         },
       }
-    ).then((data) => {
-      console.log(JSON.stringify(data));
+    ).then(async (data) => {
+      updateField("event", id, "published", false);
+      const event = await fetchUniqueCalendarEvent(id, token);
+      console.log("EVENT DELETED: ", event);
     });
   } catch (error) {
     alert("Unable to delete event at this time: " + error);
   }
 }
 
-export const deleteCalendarEvents = async (events: [], token: any) => {
-  let idArray = events.map((e: { event_id: string }) => {
-    return e.event_id;
+export const deleteManyCalendarEvents = async (
+  events: EventType[] | undefined,
+  token: any
+) => {
+  if (!events || !token) return;
+  let idArray = events.map((e: { id: string }) => {
+    return e.id;
   });
   for (let i = 0; i < events.length; i++) {
-    await deleteCalendarEvent(idArray[i], token);
+    // BUG: Make sure this works
+    const response = await backOff(() =>
+      deleteCalendarEvent(idArray[i], token)
+    );
   }
 };
 
@@ -126,39 +135,107 @@ const fetchHolidays = async (region: string, token: any) => {
   }
 };
 
-// export async function postManyEventsToGoogle(
-//   events: any[],
-//   // targetDate: Date,
-//   userId: string
-// ) {
-//   const eventsSuccessfullyPublished: string[] = [];
-//   const token = await fetchOauthGoogleToken(userId);
-//   if (!token) return;
-//   for (let i = 0; i < events.length; i++) {
-//     try {
-//       const response = await backOff(() =>
-//         formatAndPostUniqueEvent(events[i], token).then((res: any) => {
-//           const [status, data] = res;
-//           if (status !== 200) {
-//             return;
-//           }
-//           console.log("RESPONSE FROM INDIVIDUAL EVENT POST: ", res);
-//           eventsSuccessfullyPublished.push(data.id);
-//         })
-//       );
-//       return response;
-//     } catch (e) {
-//       console.log("error: ", e);
-//     }
-//   }
-// }
+export const fetchAllCalendarEvents = async (token: any) => {
+  if (!token) {
+    alert("No token found");
+  }
+  try {
+    const res = await fetch(
+      "https://www.googleapis.com/calendar/v3/calendars/primary/events",
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    ).then((res) => {
+      return res.json();
+    });
+
+    return res;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+export const fetchUniqueCalendarEvent = async (id: string, token: any) => {
+  try {
+    const res = await fetch(
+      `https://www.googleapis.com/calendar/v3/calendars/primary/events/${id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    ).then((res) => {
+      return res.json();
+    });
+
+    return res;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+export const updateUniqueCalendarEvent = async (
+  event: EventType,
+  token: any,
+  [key, value]: [string, any]
+) => {
+  let status, data, error;
+
+  const headers = {
+    Authorization: "Bearer " + token,
+  };
+  try {
+    const res = await fetch(
+      `https://www.googleapis.com/calendar/v3/calendars/primary/events/${event.id}`,
+      {
+        method: "GET",
+        headers,
+      }
+    ).then(async (res) => {
+      const fetchedEvent = await res.json();
+      if (!fetchedEvent) {
+        error = "No event fetched on update";
+        throw new Error("No event fetched on update");
+      }
+      const body = JSON.stringify({
+        ...fetchedEvent,
+        [key]: value,
+      });
+      console.log(body);
+      try {
+        const response = await fetch(
+          `https://www.googleapis.com/calendar/v3/calendars/primary/events/${event.id}`,
+          {
+            method: "PUT",
+            headers,
+            body,
+          }
+        );
+        status = response.status;
+        data = response.json();
+      } catch (err) {
+        error = err;
+      }
+    });
+
+    return [status, data, error];
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+
+  return [status, data, error];
+};
 
 export async function formatAndPostUniqueEvent(
   eventObj: EventType,
   token: string
 ) {
   const { entity, description, id, date } = eventObj;
-  let status, data;
+  let status, data, error;
 
   if (!token || !eventObj) {
     console.log(
@@ -202,7 +279,7 @@ export async function formatAndPostUniqueEvent(
       }
     ).then((res) => {
       data = eventObj;
-      console.log(res.status);
+      console.log(res);
       status = res.status;
       if (res.status !== 200) return;
       try {
@@ -218,8 +295,9 @@ export async function formatAndPostUniqueEvent(
       }
       return res.json();
     });
-  } catch (error) {
-    alert("Unable to create event at this time: " + error);
+  } catch (err) {
+    alert("Unable to create event at this time: " + err);
+    error = err;
   }
-  return [status, data];
+  return [status, data, error];
 }

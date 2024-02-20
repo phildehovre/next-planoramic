@@ -10,6 +10,7 @@ interface CampaignType extends ResourceType {
   generated_from: string;
   templateId?: string;
   target_date: Date;
+  published: boolean;
 }
 
 interface TemplateType extends ResourceType {

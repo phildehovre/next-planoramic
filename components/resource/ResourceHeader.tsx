@@ -2,10 +2,7 @@
 
 import React, { useEffect } from "react";
 import UpdatableField from "./UpdatableField";
-import {
-  handleDeleteResource,
-  handlePublishPhase,
-} from "@/app/actions/actions";
+import { handleDeleteResource } from "@/app/actions/actions";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import Dropdown from "./Dropdown";
 import styles from "./ResourceHeader.module.scss";
@@ -18,16 +15,19 @@ import TargetDate from "./TargetDate";
 import classNames from "classnames";
 import { useUser } from "@clerk/nextjs";
 import usePostManyEventsToGoogle from "@/hooks/calendar";
-import { Card } from "@radix-ui/themes";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import UnpublishModal from "./modals/unpublishModal";
+import { deleteManyCalendarEvents } from "@/app/actions/calendar";
+import { Campaign } from "@prisma/client";
 
 type ResourceHeaderTypes = {
   resourceId: string;
   type: "template" | "campaign";
   resource: CampaignType | TemplateType | EventType;
   events?: EventType[];
+  token: string;
 };
 
 const ResourceHeader = ({
@@ -35,17 +35,29 @@ const ResourceHeader = ({
   type,
   resource,
   events,
+  token,
 }: ResourceHeaderTypes) => {
   const [displayModal, setDisplayModal] = React.useState("");
 
   const { user } = useUser();
-  const { postManyEventsToGoogle, loading, errors, successfulPosts } =
-    usePostManyEventsToGoogle();
+  const {
+    postManyEventsToGoogle,
+    loading,
+    errors,
+    successfulPosts,
+    updateManyEventsToGoogle,
+  } = usePostManyEventsToGoogle(
+    type === "campaign" ? (resource as CampaignType) : null
+  );
 
   const campaignOptions = [
     {
       label: "Publish to Calendar",
       type: "publish_campaign",
+    },
+    {
+      label: "Unpublish [DEV FEATURE]",
+      type: "unpublish_campaign",
     },
     {
       label: "Delete campaign",
@@ -73,6 +85,9 @@ const ResourceHeader = ({
     if (operation === "publish_campaign") {
       setDisplayModal("publish_campaign");
     }
+    if (operation === "unpublish_campaign") {
+      setDisplayModal("unpublish_campaign");
+    }
   };
 
   const handlePublishTemplate = async (formData: FormData) => {
@@ -91,7 +106,11 @@ const ResourceHeader = ({
 
   const handlePublishCampaign = async () => {
     if (!!events && !!user?.id) {
-      postManyEventsToGoogle(events, user?.id).then((res) => {});
+      if ((resource as CampaignType).published) {
+        updateManyEventsToGoogle(events, user?.id, ["status", "confirmed"]);
+      } else {
+        postManyEventsToGoogle(events, user?.id).then((res) => {});
+      }
     }
   };
   return (
@@ -186,6 +205,13 @@ const ResourceHeader = ({
           })}
         </div>
       </Modal>
+      <UnpublishModal
+        modalProps={{ events, loading, errors }}
+        onCancel={() => setDisplayModal("")}
+        onSave={() => deleteManyCalendarEvents(events, token)}
+        displayModal={displayModal === "unpublish_campaign"}
+        isLoading={loading}
+      />
     </>
   );
 };

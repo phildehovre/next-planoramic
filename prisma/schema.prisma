@@ -53,6 +53,7 @@ model Campaign {
   generated_from Template? @relation(fields: [templateId], references: [id])
   Events         Event[]
   target_date    DateTime
+  published      Boolean   @default(false)
 }
 
 model Event {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import styles from "./Modal.module.scss";
 import { Button } from "../ui/button";
 import {

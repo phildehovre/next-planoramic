@@ -12,9 +12,11 @@ import dayjs from "dayjs";
 import Spinner from "@/components/ui/Spinner";
 import { checkForPhaseOverlap } from "@/utils/helpers";
 import { auth, currentUser } from "@clerk/nextjs";
+import { fetchOauthGoogleToken } from "@/app/actions/calendar";
 
 const Page = async ({ params }: any) => {
   const authUser = await currentUser();
+  const token = await fetchOauthGoogleToken(authUser?.id);
 
   const user = {
     id: authUser?.id,
@@ -28,7 +30,10 @@ const Page = async ({ params }: any) => {
   const resource =
     params.resource === "template"
       ? ((await getUniqueTemplateByUser(params.id, user)) as TemplateType)
-      : ((await getUniqueCampaignByUser(params.id, user)) as CampaignType);
+      : ((await getUniqueCampaignByUser(
+          params.id,
+          user
+        )) as unknown as CampaignType);
 
   const allEvents: any =
     params.resource === "template"
@@ -61,6 +66,7 @@ const Page = async ({ params }: any) => {
         type={params.resource}
         resource={resource}
         events={events}
+        token={token}
       />
       {events && resource ? (
         <ResourceTable
