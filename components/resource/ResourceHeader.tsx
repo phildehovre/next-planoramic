@@ -183,12 +183,15 @@ const ResourceHeader = ({
         <div className="">
           {events?.map((event) => {
             let isError = errors.find((error) => error.event.id === event.id);
+            let isPublished =
+              successfulPosts.includes(event.id) || event.published;
             return (
               <div
                 key={event.id}
                 className={`
                 flex justify-between flex-row w-full p-2 text-sm my-1 bg-gray-100 rounded-md
-                ${isError ? "bg-red-100" : "bg-green-100"}
+                ${isError ? "bg-red-100" : ""}
+                ${isPublished ? "bg-green-100" : ""}
                 "
                 `}
               >
@@ -206,7 +209,7 @@ const ResourceHeader = ({
         </div>
       </Modal>
       <UnpublishModal
-        modalProps={{ events, loading, errors }}
+        modalProps={{ events, loading, errors, successfulPosts }}
         onCancel={() => setDisplayModal("")}
         onSave={() => deleteManyCalendarEvents(events, token)}
         displayModal={displayModal === "unpublish_campaign"}

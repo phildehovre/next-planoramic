@@ -36,6 +36,8 @@ const Cell = ({ value, type, id, label, isHeader }: CellType) => {
         return "select";
       case "date":
         return "date";
+      case "published":
+        return "checkbox";
       default:
         return "text";
     }

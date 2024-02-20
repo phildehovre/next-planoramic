@@ -10,6 +10,8 @@ import { entityOptions, unitOptions } from "@/constants/SelectOptions";
 import { capitalize } from "@/utils/helpers";
 import { ArrowDownIcon, TriangleDownIcon } from "@radix-ui/react-icons";
 import classnames from "classnames";
+import { Checkbox } from "../ui/checkbox";
+import { cn } from "@/lib/utils";
 
 function Field(props: {
   label: string;
@@ -105,6 +107,16 @@ function Field(props: {
   }, [inputValue, type]);
 
   const renderInput = () => {
+    if (type === "checkbox") {
+      return (
+        <Checkbox
+          onChange={() => {}}
+          value={inputValue}
+          autoFocus
+          className={cn("cell", inputType)}
+        />
+      );
+    }
     if (isEditing) {
       return (
         <Form

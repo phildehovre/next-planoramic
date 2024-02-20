@@ -26,6 +26,7 @@ interface EventType extends ResourceType {
   phase_number?: number;
   type: "template_event" | "campaign_event";
   date?: string;
+  published: boolean;
 }
 
 interface User {

@@ -12,7 +12,6 @@ type RowType = {
   onSelectAll?: () => void;
   onRowSelect?: () => void;
 };
-
 const Row = ({
   data,
   isHeader,

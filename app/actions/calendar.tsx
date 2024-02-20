@@ -6,6 +6,7 @@ import { backOff } from "exponential-backoff";
 import { update } from "./eventActions";
 import { updateField } from "./actions";
 import { Event } from "@prisma/client";
+import { GoogleEventSchema } from "@/schemas/events";
 
 export const fetchOauthGoogleToken = async (userId: string | undefined) => {
   if (!userId) return;
@@ -205,7 +206,7 @@ export const updateUniqueCalendarEvent = async (
         ...fetchedEvent,
         [key]: value,
       });
-      console.log(body);
+      // console.log(body);
       try {
         const response = await fetch(
           `https://www.googleapis.com/calendar/v3/calendars/primary/events/${event.id}`,
@@ -216,7 +217,8 @@ export const updateUniqueCalendarEvent = async (
           }
         );
         status = response.status;
-        data = response.json();
+        data = await response.json();
+        console.log(data);
       } catch (err) {
         error = err;
       }

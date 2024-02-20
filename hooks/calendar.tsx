@@ -7,6 +7,7 @@ import {
   updateUniqueCalendarEvent,
 } from "@/app/actions/calendar";
 import { update } from "@/app/actions/eventActions";
+import { GoogleEventSchema } from "@/schemas/events";
 import { backOff } from "exponential-backoff";
 import { useState } from "react";
 
@@ -20,6 +21,8 @@ function usePostManyEventsToGoogle(campaign: CampaignType | null) {
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<ErrorType[]>([]);
   const [successfulPosts, setSuccessfulPosts] = useState<string[]>([]);
+
+  console.log(successfulPosts, "SUCCESSFUL POSTS");
 
   async function postManyEventsToGoogle(
     events: EventType[],
@@ -108,7 +111,8 @@ function usePostManyEventsToGoogle(campaign: CampaignType | null) {
             updateUniqueCalendarEvent(events[i], token, keyValue).then(
               async (res: any) => {
                 const [status, data, error] = res;
-                console.log(res)
+
+                // console.log(res)
                 if (status !== 200) {
                   setErrors((prevErrors: ErrorType[]) => [
                     ...prevErrors,
@@ -122,6 +126,7 @@ function usePostManyEventsToGoogle(campaign: CampaignType | null) {
                 }
                 // BUG: This is not updating the event in the database
                 await updateField("event", data.id, "published", true);
+                console.log("DATA: ", data);
                 eventsSuccessfullyPublished.push(data.id);
               }
             )
