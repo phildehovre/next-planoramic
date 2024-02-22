@@ -1,0 +1,10 @@
+.hero_background {
+    background-image: url("https://res.cloudinary.com/dtnif6mzm/image/upload/v1708522068/Planoramic/Asset_1_lgfslz.svg");
+    background-size: cover;
+    position: fixed;
+    right: 0
+}
+
+* {
+    /* outline: 1px solid red; */
+}

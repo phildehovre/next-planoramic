@@ -6,6 +6,8 @@ import "./globals.css";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { Toaster } from "@/components/ui/toaster";
+import Lenis from "@studio-freight/lenis";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +24,8 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>
-          <main className="flex flex-col justify-between w-screen h-screen">
+        <body className={cn(inter.className, "overflow-x-hidden")}>
+          <main className="flex flex-col justify-between w-screen h-auto">
             <Header />
             {children}
             <Footer />
