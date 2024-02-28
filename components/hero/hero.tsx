@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import React, { useLayoutEffect } from "react";
 import "./hero.css";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 const hero = () => {
   useLayoutEffect(() => {
@@ -70,10 +71,10 @@ const hero = () => {
     <div className="w-screen flex justify-center overflow-x-hidden h-[1000vh] ">
       <div className={cn("hero_background", "w-3/5  h-full")}></div>
       <div className={cn("track", "w-full z-10 flex  flex-col items-center ")}>
-        <div className="w-3/4 h-[200vh] bg-green-400"></div>
-        <div className="w-3/4 h-[200vh] bg-green-500"></div>
-        <div className="w-3/4 h-[200vh] bg-green-600"></div>
-        <div className="w-3/4 h-[200vh] bg-green-700"></div>
+        <div className="w-3/4 h-[300vh] bg-green-400"></div>
+        <div className="w-3/4 h-[300vh] bg-green-500"></div>
+        <div className="w-3/4 h-[300vh] bg-green-600"></div>
+        <div className="w-3/4 h-[300vh] bg-green-700"></div>
       </div>
     </div>
   );

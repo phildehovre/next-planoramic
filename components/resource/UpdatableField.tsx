@@ -8,7 +8,7 @@ import { useOptimistic } from "react";
 import Select from "./Select";
 import { entityOptions, unitOptions } from "@/constants/SelectOptions";
 import { capitalize } from "@/utils/helpers";
-import { ArrowDownIcon, TriangleDownIcon } from "@radix-ui/react-icons";
+import { TriangleDownIcon } from "@radix-ui/react-icons";
 import classnames from "classnames";
 import { Checkbox } from "../ui/checkbox";
 import { cn } from "@/lib/utils";
@@ -57,12 +57,26 @@ function Field(props: {
       ? [classNames, "passive"]
       : ["passive"];
 
-  useEffect(() => {
-    setInitialtValue((prev: any) => (value !== prev ? value : prev));
-  }, [value]);
+  // useEffect(() => {
+  //   setInitialtValue((prev: any) => (value !== prev ? value : prev));
+  // }, [value]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  /**
+   * Initial useEffect to set the state of the input value: isEditing: boolean.
+   */
+
+  useEffect(() => {
+    if (isEditing) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isEditing, inputValue]);
   const handleClickOutside = (event: MouseEvent) => {
     if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
       handleOptimisticUpdate();
@@ -86,17 +100,6 @@ function Field(props: {
     }
     setIsEditing(false);
   };
-
-  useEffect(() => {
-    if (isEditing) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isEditing, inputValue]);
 
   // This ensure only Select fields
   // are updated when the input changes
