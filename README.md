@@ -35,7 +35,7 @@ Before using Planoramic, ensure the following configurations:
 
 ## Support
 
-For inquiries, feedback, or assistance, please contact our support team at support@planoramic.com.
+For inquiries, feedback, or assistance, please contact our support team at me@philippedehovre.com.
 
 ## Contributions
 
