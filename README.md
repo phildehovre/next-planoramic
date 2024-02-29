@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Planoramic: Template Campaign Manager
 
-## Getting Started
+## Overview
 
-First, run the development server:
+Planoramic is a powerful application designed to simplify the creation, management, and publication of campaign templates. With Planoramic, users can seamlessly organize phases and events to create comprehensive campaigns. The app offers seamless integration with Google Calendar, enabling users to effortlessly publish their campaigns as events onto their calendars.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Template Creation**: Easily create customizable templates for campaigns.
+- **Phase and Event Management**: Organize campaigns into distinct phases and events for clarity and efficiency.
+- **Campaign Publishing**: Publish campaigns created from templates directly onto Google Calendar.
+- **Google Calendar Integration**: Sync campaigns with Google Calendar for easy scheduling and tracking.
+- **Intuitive Interface**: User-friendly interface for smooth navigation and efficient workflow.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Clone the repository from [GitHub Repository](https://github.com/phildehovre/next-planoramic).
+2. Install dependencies using `npm install`.
+3. Contact me a me@philippedehovre.com to be added as a test user.
+4. Run the application using `npm start`.
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+1. **Create Templates**: Start by creating templates for your campaigns. Define phases and events within each template.
+2. **Manage Phases and Events**: Organize phases and events within your templates to structure your campaigns effectively.
+3. **Publish Campaigns**: Once templates are customized, publish campaigns directly onto your Google Calendar.
+4. **View and Track**: Access your Google Calendar to view and track scheduled campaigns and events.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Before using Planoramic, ensure the following configurations:
 
-## Deploy on Vercel
+- Set up Google Calendar API credentials.
+- Configure calendar settings for appropriate time zones and event details.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Support
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For inquiries, feedback, or assistance, please contact our support team at support@planoramic.com.
+
+## Contributions
+
+Contributions are welcomed! Feel free to fork the repository and submit pull requests with your enhancements.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
