@@ -4,6 +4,8 @@
 
 Planoramic is a powerful application designed to simplify the creation, management, and publication of campaign templates. With Planoramic, users can seamlessly organize phases and events to create comprehensive campaigns. The app offers seamless integration with Google Calendar, enabling users to effortlessly publish their campaigns as events onto their calendars.
 
+The app is currently in alpha and only test users can access the full version. Contact me me@philippedehovre.com for more information.
+
 ## Features
 
 - **Template Creation**: Easily create customizable templates for campaigns.
