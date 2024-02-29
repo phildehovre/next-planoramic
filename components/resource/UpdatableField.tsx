@@ -57,10 +57,6 @@ function Field(props: {
       ? [classNames, "passive"]
       : ["passive"];
 
-  // useEffect(() => {
-  //   setInitialtValue((prev: any) => (value !== prev ? value : prev));
-  // }, [value]);
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   /**

@@ -201,12 +201,19 @@ const Phase = ({
           options={phaseOptions}
           onOptionClick={handlePhaseOptionClick}
           label="Phase options"
+          title="Phase manipulation options"
         />
         <DropdownMenuDemo
           Icon={DotsVerticalIcon}
           options={selectedEventsOptions}
           onOptionClick={handleSelectedOptionClick}
           label="Events options"
+          disabled={selectedRows.length === 0}
+          title={
+            selectedRows.length === 0
+              ? "No events selected for manipulation"
+              : "Selected events manipulation options"
+          }
         />
       </span>
       <Row
