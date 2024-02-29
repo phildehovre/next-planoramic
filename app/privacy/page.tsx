@@ -7,8 +7,9 @@ const PrivacyPage = () => {
 
       <p>
         This Privacy Policy governs the collection, use, and protection of user
-        information by the Planoramic application ("the App"). By using the App,
-        you agree to the terms and conditions outlined in this policy.
+        information by the Planoramic application (&quot;the App&quot;). By
+        using the App, you agree to the terms and conditions outlined in this
+        policy.
       </p>
 
       <h2 className="text-2xl mt-5">1. Information Collection</h2>
@@ -19,7 +20,7 @@ const PrivacyPage = () => {
       </p>
 
       <ul>
-        <li>User's Google account information (e.g., email address)</li>
+        <li>User&apos;s Google account information (e.g., email address)</li>
         <li>Basic calendar data (e.g., events, schedules)</li>
       </ul>
 
@@ -79,9 +80,9 @@ const PrivacyPage = () => {
 
       <p>
         Users have full control over the data accessed and stored by Planoramic
-        through their Google account settings. They can revoke the App's access
-        to their Google Calendar data at any time by modifying their account
-        settings.
+        through their Google account settings. They can revoke the App&apos;s
+        access to their Google Calendar data at any time by modifying their
+        account settings.
       </p>
 
       <p>
@@ -92,9 +93,9 @@ const PrivacyPage = () => {
       <h2 className="text-2xl mt-5">6. Compliance with Laws and Regulations</h2>
 
       <p>
-        Planoramic's privacy practices comply with relevant data protection laws
-        and regulations, including the General Data Protection Regulation (GDPR)
-        and the California Consumer Privacy Act (CCPA).
+        Planoramic&apos;s privacy practices comply with relevant data protection
+        laws and regulations, including the General Data Protection Regulation
+        (GDPR) and the California Consumer Privacy Act (CCPA).
       </p>
 
       <h2 className="text-2xl mt-5">7. Updates to Privacy Policy</h2>
