@@ -2,9 +2,8 @@ import React from "react";
 
 const PrivacyPage = () => {
   return (
-    <div>
-      <h1>PRivacy policy:</h1>
-      <h1>Privacy Policy</h1>
+    <div className="flex  flex-col w-1/3 gap-2">
+      <h1 className="text-4xl">Privacy Policy</h1>
 
       <p>
         This Privacy Policy governs the collection, use, and protection of user
@@ -12,7 +11,7 @@ const PrivacyPage = () => {
         you agree to the terms and conditions outlined in this policy.
       </p>
 
-      <h2>1. Information Collection</h2>
+      <h2 className="text-2xl mt-5">1. Information Collection</h2>
 
       <p>
         Planoramic collects and stores limited information necessary to provide
@@ -24,7 +23,7 @@ const PrivacyPage = () => {
         <li>Basic calendar data (e.g., events, schedules)</li>
       </ul>
 
-      <h2>2. Use of Information</h2>
+      <h2 className="text-2xl mt-5">2. Use of Information</h2>
 
       <p>
         The information collected by Planoramic is used solely to facilitate
@@ -47,7 +46,7 @@ const PrivacyPage = () => {
         such as marketing, advertising, or third-party data sharing.
       </p>
 
-      <h2>3. Data Security</h2>
+      <h2 className="text-2xl mt-5">3. Data Security</h2>
 
       <p>
         We take the security of user data seriously and implement appropriate
@@ -67,7 +66,7 @@ const PrivacyPage = () => {
         <li>Limiting access to user data to authorized personnel only</li>
       </ul>
 
-      <h2>4. Third-Party Access</h2>
+      <h2 className="text-2xl mt-5">4. Third-Party Access</h2>
 
       <p>
         Planoramic may utilize third-party services or APIs provided by Google
@@ -76,7 +75,7 @@ const PrivacyPage = () => {
         them for further information.
       </p>
 
-      <h2>5. User Control and Consent</h2>
+      <h2 className="text-2xl mt-5">5. User Control and Consent</h2>
 
       <p>
         Users have full control over the data accessed and stored by Planoramic
@@ -90,7 +89,7 @@ const PrivacyPage = () => {
         information as outlined in this Privacy Policy.
       </p>
 
-      <h2>6. Compliance with Laws and Regulations</h2>
+      <h2 className="text-2xl mt-5">6. Compliance with Laws and Regulations</h2>
 
       <p>
         Planoramic's privacy practices comply with relevant data protection laws
@@ -98,7 +97,7 @@ const PrivacyPage = () => {
         and the California Consumer Privacy Act (CCPA).
       </p>
 
-      <h2>7. Updates to Privacy Policy</h2>
+      <h2 className="text-2xl mt-5">7. Updates to Privacy Policy</h2>
 
       <p>
         We reserve the right to update or modify this Privacy Policy at any
@@ -106,7 +105,7 @@ const PrivacyPage = () => {
         notified accordingly.
       </p>
 
-      <h2>8. Contact Us</h2>
+      <h2 className="text-2xl mt-5">8. Contact Us</h2>
 
       <p>
         If you have any questions or concerns regarding this Privacy Policy or
