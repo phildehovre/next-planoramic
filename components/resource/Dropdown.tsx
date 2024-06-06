@@ -11,16 +11,23 @@ const DropdownMenuDemo = ({
   onOptionClick,
   Icon,
   label,
+  disabled,
+  title,
 }: {
   options: OptionType[];
   onOptionClick: (type: string, phase?: number) => void;
   Icon: any;
   label?: string;
+  disabled?: boolean;
+  title?: string;
 }) => {
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <button className={styles.IconButton} aria-label="Customize options">
+      <DropdownMenu.Trigger asChild disabled={disabled} title={title}>
+        <button
+          className={cn(styles.IconButton, disabled ? styles.disabled : null)}
+          aria-label="Selected events manipulation options"
+        >
           <Icon />
         </button>
       </DropdownMenu.Trigger>

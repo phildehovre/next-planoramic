@@ -101,6 +101,10 @@
   color: var(--violet-11);
   background-color: white;
 }
+
+.disabled {
+  background-color: transparent;
+}
 .IconButton:hover {
   background-color: var(--violet-3);
 }

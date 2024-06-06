@@ -184,14 +184,14 @@ export const copyManyEventsToPhase = async (
         },
       },
     });
-
+    console.log(events);
     const newEvents = events.map((event) => {
       // Omitting the 'id' field to allow Prisma to generate a new one
       const { id, ...eventWithoutId } = event;
 
       return {
         ...eventWithoutId,
-        phase_number: destinationPhase,
+        phase_number: destinationPhase || event.phase_number + 1,
       };
     });
 
