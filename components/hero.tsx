@@ -69,12 +69,12 @@ const hero = () => {
   return (
     <div className="w-screen flex justify-center overflow-x-hidden h-[1000vh] ">
       <div className={cn("hero_background", "w-3/5  h-full")}></div>
-      <div className={cn("track", "w-full z-10 flex  flex-col items-center ")}>
+      {/* <div className={cn("track", "w-full z-10 flex  flex-col items-center ")}>
         <div className="w-3/4 h-[200vh] bg-green-400"></div>
         <div className="w-3/4 h-[200vh] bg-green-500"></div>
         <div className="w-3/4 h-[200vh] bg-green-600"></div>
         <div className="w-3/4 h-[200vh] bg-green-700"></div>
-      </div>
+      </div> */}
     </div>
   );
 };
